@@ -1,0 +1,30 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
+
+namespace ClinkedIn_Ginger_Spice.Models
+{
+    public class User
+    {
+        public int Id { get; set; }
+        public string Email { get; set; }
+        public string Password { get; set; }
+        public string FirstName { get; set; }
+        public string LastName { get; set; }
+        public Gender Gender { get; set; }
+        public int Age { get; set; }
+        public List<KeyValuePair<string, bool>> Interests { get; set; }
+        public List<KeyValuePair<string, bool>> Services { get; set; }
+        public List<User> Friends { get; set; }
+        public List<User> Enemies { get; set; }
+    }
+
+    public enum Gender
+    {
+        Female,
+        Male,
+        Nonbinary,
+        None
+    }
+}
