@@ -20,5 +20,13 @@ namespace ClinkedIn_Ginger_Spice.DataAccess
         {
             return _users;
         }
+
+        public void Add(User user)
+        {
+            var biggestExistingId = _users.Max(person => person.Id);
+            user.Id = biggestExistingId + 1;
+
+            _users.Add(user);
+        }
     }
 }

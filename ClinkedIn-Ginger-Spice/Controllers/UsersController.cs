@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ClinkedIn_Ginger_Spice.DataAccess;
+using ClinkedIn_Ginger_Spice.Models;
 
 namespace ClinkedIn_Ginger_Spice.Controllers
 {
@@ -24,6 +25,14 @@ namespace ClinkedIn_Ginger_Spice.Controllers
         public IActionResult GetAllUsers()
         {
             return Ok(_repo.GetAll());
+        }
+
+        //POST to /api/loaves
+        [HttpPost]
+        public IActionResult AddAUser(User user)
+        {
+            _repo.Add(user);
+            return Created($"api/Users/{user.Id}", user);
         }
     }
 }

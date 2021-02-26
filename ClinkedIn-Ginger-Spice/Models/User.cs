@@ -15,7 +15,7 @@ namespace ClinkedIn_Ginger_Spice.Models
         public Gender Gender { get; set; }
         public int Age { get; set; }
         public List<KeyValuePair<string, bool>> Interests { get; set; }
-        public List<KeyValuePair<string, bool>> Services { get; set; }
+        public List<Services> Services { get; set; }
         public List<User> Friends { get; set; }
         public List<User> Enemies { get; set; }
     }
@@ -26,5 +26,14 @@ namespace ClinkedIn_Ginger_Spice.Models
         Male,
         Nonbinary,
         None
+    }
+
+    public enum Services
+    {
+        Reading,
+        Typing,
+        Sweeping,
+        Cooking,
+        Mopping
     }
 }
