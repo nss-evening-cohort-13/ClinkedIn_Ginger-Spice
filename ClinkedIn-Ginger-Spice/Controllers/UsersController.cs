@@ -49,7 +49,7 @@ namespace ClinkedIn_Ginger_Spice.Controllers
             return Ok(user);
         }
 
-        [HttpGet("{id}/Service_list")]
+        [HttpGet("{id}/Services")]
         public IActionResult GetListOfServiceById(int id)
         {
             var user = _repo.GetUser(id);
@@ -62,12 +62,15 @@ namespace ClinkedIn_Ginger_Spice.Controllers
             return Ok(user.Services);
         }
 
-        [HttpGet("{id}/Service_list/Request/{service}")]
+        [HttpGet("{id}/Services/Request/{service}")]
         public IActionResult GetListOfServiceAndRequest(int id, string service)
         {
             var user = _repo.GetUser(id);
 
-            Services myServices = (Services)Enum.Parse(typeof(Services), service, false);
+            if(!Enum.TryParse<Services>( service, false, out var myServices))
+            {
+                return BadRequest("This user doesn't have that service available");
+            }
 
             var checkIfServiceIsAvailable = from userService in user.Services
                                             where userService == myServices
@@ -75,7 +78,7 @@ namespace ClinkedIn_Ginger_Spice.Controllers
 
             if (checkIfServiceIsAvailable == null)
             {
-                return NotFound("This user doesn't have that service available");
+                return NotFound("This page is not found");
             }
 
             return Ok(checkIfServiceIsAvailable);
