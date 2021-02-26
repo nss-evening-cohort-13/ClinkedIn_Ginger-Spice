@@ -22,7 +22,12 @@ namespace ClinkedIn_Ginger_Spice.DataAccess
                 { 
                     Interests.Poetry,
                     Interests.Painting
-                } 
+                },
+                Services = new List<Services>
+                {
+                    Services.Cooking,
+                    Services.Reading
+                }
             },
             new User { 
                 Id = 2, 
@@ -73,10 +78,19 @@ namespace ClinkedIn_Ginger_Spice.DataAccess
             return _users;
         }
 
+        public void Add(User user)
+        {
+            var biggestExistingId = _users.Max(person => person.Id);
+            user.Id = biggestExistingId + 1;
+
+            _users.Add(user);
+        }
+
         public User GetUser(int id)
         {
             var user = _users.FirstOrDefault(user => user.Id == id);
             return user;
+
         }
     }
 }

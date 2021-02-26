@@ -14,8 +14,8 @@ namespace ClinkedIn_Ginger_Spice.Models
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public int Age { get; set; }
+        public List<Services> Services { get; set; }
         public List<Interests> Interests { get; set; }
-        public List<KeyValuePair<string, bool>> Services { get; set; }
         public List<User> Friends { get; set; }
         public List<User> Enemies { get; set; }
     }
@@ -28,11 +28,20 @@ namespace ClinkedIn_Ginger_Spice.Models
         None
     }
 
+    public enum Services
+    {
+        Reading,
+        Typing,
+        Sweeping,
+        Cooking,
+        Mopping
+    }
     public enum Interests
     {
         Painting,
         Poetry,
         Cooking,
         Coding
+
     }
 }

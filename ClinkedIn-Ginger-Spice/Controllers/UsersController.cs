@@ -27,6 +27,15 @@ namespace ClinkedIn_Ginger_Spice.Controllers
             return Ok(_repo.GetAll());
         }
 
+
+        [HttpPost]
+        public IActionResult AddAUser(User user)
+        {
+            _repo.Add(user);
+            return Created($"api/Users/{user.Id}", user);
+
+        }
+
         [HttpGet("{id}")]
         public IActionResult GetById(int id)
         {
@@ -34,10 +43,47 @@ namespace ClinkedIn_Ginger_Spice.Controllers
 
             if (user == null)
             {
-                return NotFound("This loaf id does not exist");
+                return NotFound("This user id does not exist");
             }
 
             return Ok(user);
+        }
+
+        [HttpGet("{id}/Services")]
+        public IActionResult GetListOfServiceById(int id)
+        {
+            var user = _repo.GetUser(id);
+
+            if (user.Services == null)
+            {
+                return NotFound("This user's service list is empty");
+            }
+
+            return Ok(user.Services);
+        }
+
+        [HttpGet("{id}/Services/Request/{service}")]
+        public IActionResult GetListOfServiceAndRequest(int id, string service)
+        {
+            var user = _repo.GetUser(id);
+
+            if(!Enum.TryParse<Services>( service, false, out var myServices))
+            {
+                return BadRequest("This user doesn't have that service available");
+            }
+
+            var checkIfServiceIsAvailable = from userService in user.Services
+                                            where userService == myServices
+                                            select userService;
+
+            if (checkIfServiceIsAvailable == null)
+            {
+                return NotFound("This page is not found");
+            }
+
+            return Ok(checkIfServiceIsAvailable);
+            
+            
         }
 
         [HttpGet("interest/{interest}")]
@@ -52,6 +98,7 @@ namespace ClinkedIn_Ginger_Spice.Controllers
                                    select u;
 
             return Ok(userWithInterest);
+
         }
     }
 }
