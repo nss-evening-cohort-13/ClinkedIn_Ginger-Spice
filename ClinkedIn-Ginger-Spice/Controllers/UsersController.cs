@@ -43,10 +43,44 @@ namespace ClinkedIn_Ginger_Spice.Controllers
 
             if (user == null)
             {
-                return NotFound("This loaf id does not exist");
+                return NotFound("This user id does not exist");
             }
 
             return Ok(user);
+        }
+
+        [HttpGet("{id}/Service_list")]
+        public IActionResult GetListOfServiceById(int id)
+        {
+            var user = _repo.GetUser(id);
+
+            if (user.Services == null)
+            {
+                return NotFound("This user's service list is empty");
+            }
+
+            return Ok(user.Services);
+        }
+
+        [HttpGet("{id}/Service_list/Request/{service}")]
+        public IActionResult GetListOfServiceAndRequest(int id, string service)
+        {
+            var user = _repo.GetUser(id);
+
+            Services myServices = (Services)Enum.Parse(typeof(Services), service, false);
+
+            var checkIfServiceIsAvailable = from userService in user.Services
+                                            where userService == myServices
+                                            select userService;
+
+            if (checkIfServiceIsAvailable == null)
+            {
+                return NotFound("This user doesn't have that service available");
+            }
+
+            return Ok(checkIfServiceIsAvailable);
+            
+            
         }
 
         [HttpGet("interest/{interest}")]

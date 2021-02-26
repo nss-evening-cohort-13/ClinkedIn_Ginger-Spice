@@ -22,7 +22,12 @@ namespace ClinkedIn_Ginger_Spice.DataAccess
                 { 
                     Interests.Poetry,
                     Interests.Painting
-                } 
+                },
+                Services = new List<Services>
+                {
+                    Services.Cooking,
+                    Services.Reading
+                }
             },
             new User { 
                 Id = 2, 
