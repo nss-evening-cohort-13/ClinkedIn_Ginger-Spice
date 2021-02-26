@@ -27,12 +27,41 @@ namespace ClinkedIn_Ginger_Spice.Controllers
             return Ok(_repo.GetAll());
         }
 
-        //POST to /api/loaves
+
         [HttpPost]
         public IActionResult AddAUser(User user)
         {
             _repo.Add(user);
             return Created($"api/Users/{user.Id}", user);
+
+        }
+
+        [HttpGet("{id}")]
+        public IActionResult GetById(int id)
+        {
+            var user = _repo.GetUser(id);
+
+            if (user == null)
+            {
+                return NotFound("This loaf id does not exist");
+            }
+
+            return Ok(user);
+        }
+
+        [HttpGet("interest/{interest}")]
+        public IActionResult GetByInterest(string interest)
+        {
+            var users = _repo.GetAll();
+
+            Interests myInterest = (Interests) Enum.Parse(typeof(Interests), interest, true);
+
+            var userWithInterest = from u in users
+                                   where u.Interests.Contains(myInterest)
+                                   select u;
+
+            return Ok(userWithInterest);
+
         }
     }
 }
