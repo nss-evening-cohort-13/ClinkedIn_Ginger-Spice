@@ -66,7 +66,7 @@ namespace ClinkedIn_Ginger_Spice.Controllers
         public IActionResult AddFriend(int id, int friendId)
         {
             _repo.AddFriend(id, friendId);
-            return Created($"api/Users/{id}/add-friend/{friendId}", "Friend added");
+            return Created($"api/Users/{id}/add-friend/{friendId}", $"Friend added");
         }
 
         [HttpPut("{id}/add-Enemy/{enemyId}")]
@@ -105,7 +105,12 @@ namespace ClinkedIn_Ginger_Spice.Controllers
         {
             var users = _repo.GetAll();
 
-            Interests myInterest = (Interests) Enum.Parse(typeof(Interests), interest, true);
+            if (!Enum.TryParse<Interests>(interest, true, out var myInterest))
+            {
+                return BadRequest("This interest does not exist");
+            }
+
+            //Interests myInterest = (Interests) Enum.Parse(typeof(Interests), interest, true);
 
             var userWithInterest = from u in users
                                    where u.Interests.Contains(myInterest)
