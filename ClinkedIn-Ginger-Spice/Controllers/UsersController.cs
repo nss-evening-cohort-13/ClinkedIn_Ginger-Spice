@@ -69,7 +69,12 @@ namespace ClinkedIn_Ginger_Spice.Controllers
             return Created($"api/Users/{id}/add-friend/{friendId}", "Friend added");
         }
 
-
+        [HttpPut("{id}/add-Enemy/{enemyId}")]
+        public IActionResult AddEnemy(int id, int enemyId)
+        {
+            _repo.AddEnemy(id, enemyId);
+            return Created($"api/Users/{id}/add-enemy/{enemyId}", "Enemy added");
+        }
 
         [HttpGet("{id}/Services/Request/{service}")]
         public IActionResult GetListOfServiceAndRequest(int id, string service)
