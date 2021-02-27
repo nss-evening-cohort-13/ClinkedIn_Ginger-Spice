@@ -100,5 +100,12 @@ namespace ClinkedIn_Ginger_Spice.DataAccess
             var friendClinker = GetUser(friendId);
             userClinker.Friends.Add(friendClinker);
         }
+
+        public void AddEnemy(int userId, int enemyId)
+        {
+            var userClinker = GetUser(userId);
+            var enemyClinker = GetUser(enemyId);
+            userClinker.Enemies.Add(enemyClinker);
+        }
     }
 }
