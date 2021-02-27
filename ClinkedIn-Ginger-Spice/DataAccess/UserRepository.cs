@@ -86,11 +86,19 @@ namespace ClinkedIn_Ginger_Spice.DataAccess
             _users.Add(user);
         }
 
+
         public User GetUser(int id)
         {
             var user = _users.FirstOrDefault(user => user.Id == id);
             return user;
 
+        }
+
+        public void AddFriend(int userId, int friendId)
+        {
+            var userClinker = GetUser(userId);
+            var friendClinker = GetUser(friendId);
+            userClinker.Friends.Add(friendClinker);
         }
     }
 }

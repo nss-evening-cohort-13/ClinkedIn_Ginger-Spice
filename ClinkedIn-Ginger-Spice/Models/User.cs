@@ -14,10 +14,10 @@ namespace ClinkedIn_Ginger_Spice.Models
         public string LastName { get; set; }
         public Gender Gender { get; set; }
         public int Age { get; set; }
-        public List<Services> Services { get; set; }
-        public List<Interests> Interests { get; set; }
-        public List<User> Friends { get; set; }
-        public List<User> Enemies { get; set; }
+        public List<Services> Services { get; set; } = new List<Services>();
+        public List<Interests> Interests { get; set; } = new List<Interests>();
+        public List<User> Friends { get; set; } = new List<User>();
+        public List<User> Enemies { get; set; } = new List<User>();
     }
 
     public enum Gender
