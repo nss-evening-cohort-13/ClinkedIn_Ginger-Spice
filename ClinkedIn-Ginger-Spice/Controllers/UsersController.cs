@@ -62,6 +62,15 @@ namespace ClinkedIn_Ginger_Spice.Controllers
             return Ok(user.Services);
         }
 
+        [HttpPut("{id}/add-friend/{friendId}")]
+        public IActionResult AddFriend(int id, int friendId)
+        {
+            _repo.AddFriend(id, friendId);
+            return Created($"api/Users/{id}/add-friend/{friendId}", "Friend added");
+        }
+
+
+
         [HttpGet("{id}/Services/Request/{service}")]
         public IActionResult GetListOfServiceAndRequest(int id, string service)
         {
